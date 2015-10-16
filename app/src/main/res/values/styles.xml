@@ -1,0 +1,26 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="android:Theme.Holo.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+    </style>
+
+    <style name="MaterialBaseTheme" parent="Theme.AppCompat.Light">
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowNoTitle">true</item>
+        <!-- customize the color palette -->
+        <!-- 对应ActionBar的颜色 -->
+        <item name="colorPrimary">@color/material_blue_500</item>
+        <!-- 对应状态栏的颜色 -->
+        <item name="colorPrimaryDark">@color/material_blue_700</item>
+        <!-- 对应EditText编辑时,RadioButton选中,CheckBox选中的颜色 -->
+        <item name="colorAccent">@color/material_green_A200</item>
+
+        <!--另外还有一些参数-->
+        <!--windowBackground: 窗体背景色-->
+        <!--navigationBarColor: 底部导航控件背景色-->
+
+    </style>
+
+
+</resources>

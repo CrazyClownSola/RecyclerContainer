@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppTheme" parent="android:Theme.Material.Light">
+    </style>
+
+    <!--colorControlHighlight 波纹效果的颜色设定-->
+
+    <style name="MaterialTheme" parent="MaterialBaseTheme">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <item name="android:statusBarColor">@color/material_blue_700</item>
+        <item name="android:colorControlHighlight">#c6fbfa</item>
+        <item name="android:windowContentTransitions">true</item>
+        <item name="android:windowAllowEnterTransitionOverlap">true</item>
+        <item name="android:windowAllowReturnTransitionOverlap">true</item>
+        <!--<item name="android:windowSharedElementEnterTransition"></item>-->
+    </style>
+
+
+
+</resources>
