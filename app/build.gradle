@@ -35,21 +35,21 @@ apt {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':library')
+    compile project(':fix_container')
     def presentationDependencies = rootProject.ext.appDependencies
-
-    // Annotations标注库的引用部分
+// Annotations标注库的引用部分
     apt presentationDependencies.androidannotations
     compile presentationDependencies.androidannotations_api
-    // 水滴效果控件第三方库
+// 水滴效果控件第三方库
     compile presentationDependencies.material
-    // supportV7的包中的特有的一些控件
+// supportV7的包中的特有的一些控件
     compile presentationDependencies.recyclerView
     compile presentationDependencies.appcompat
     compile presentationDependencies.cardview
     compile presentationDependencies.design
-    // 一个第三方的下拉刷新的库包
+// 一个第三方的下拉刷新的库包
     compile presentationDependencies.cube
-    // gson解析的库包
+// gson解析的库包
     compile presentationDependencies.gson
 
 }

@@ -15,7 +15,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sola.module.recycle.library.interfaces.IRecycleAnimatorListItem;
+import com.sola.module.recycle.recyclecontainer.interfaces.IRecycleAnimatorListItem;
 import com.sola.module.recycle.recyclecontainer.R;
 import com.sola.module.recycle.recyclecontainer.RecycleDetailActivity_;
 

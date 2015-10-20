@@ -5,8 +5,8 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 
 import com.sola.module.recycle.library.RecycleContainerBase;
-import com.sola.module.recycle.library.adapter.RecycleAnimatorViewAdapter;
-import com.sola.module.recycle.library.interfaces.IRecycleAnimatorListItem;
+import com.sola.module.recycle.recyclecontainer.adapter.RecycleAnimatorViewAdapter;
+import com.sola.module.recycle.recyclecontainer.interfaces.IRecycleAnimatorListItem;
 import com.sola.module.recycle.library.interfaces.RecycleLoadMoreHandler;
 import com.sola.module.recycle.recyclecontainer.params.TestItemDTO;
 import com.sola.module.recycle.recyclecontainer.view.LowExpansionRecycleContainer;

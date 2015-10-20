@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.sola.module.recycle.library.R;
 import com.sola.module.recycle.library.RecycleContainerBase;
-import com.sola.module.recycle.library.interfaces.IRecycleExtraItem;
+import com.sola.module.recycle.recyclecontainer.interfaces.IRecycleExtraItem;
 import com.sola.module.recycle.library.interfaces.RecycleLoadMoreUIHandler;
 
 
@@ -51,9 +51,8 @@ public class CustomRecycleFooterView implements IRecycleExtraItem, RecycleLoadMo
     public View getView(Context context, ViewGroup parent) {
         if (mContext == null)
             mContext = context;
-        View v = LayoutInflater.from(context).inflate(R.layout.recycle_footer_view,
+        return LayoutInflater.from(context).inflate(R.layout.recycle_footer_view,
                 parent, false);
-        return v;
     }
 
     @Override

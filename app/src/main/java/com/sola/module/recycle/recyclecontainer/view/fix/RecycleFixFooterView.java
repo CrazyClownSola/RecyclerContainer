@@ -1,4 +1,4 @@
-package com.sola.module.recycle.recyclecontainer.view;
+package com.sola.module.recycle.recyclecontainer.view.fix;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -8,11 +8,10 @@ import android.view.ViewGroup;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.sola.module.recycle.library.RecycleContainerBase;
-import com.sola.module.recycle.recyclecontainer.interfaces.IRecycleExtraItem;
-import com.sola.module.recycle.library.interfaces.RecycleLoadMoreUIHandler;
+import com.sola.module.recycle.fix_container.tools.IRecycleLoadMoreContainer;
+import com.sola.module.recycle.fix_container.tools.IRecycleLoadMoreUIHandler;
 import com.sola.module.recycle.recyclecontainer.R;
-
+import com.sola.module.recycle.recyclecontainer.interfaces.IRecycleExtraItem;
 
 /**
  * Description:
@@ -20,7 +19,7 @@ import com.sola.module.recycle.recyclecontainer.R;
  * author: Sola
  * 2015/10/13
  */
-public class RecycleFooterView implements IRecycleExtraItem, RecycleLoadMoreUIHandler {
+public class RecycleFixFooterView implements IRecycleExtraItem, IRecycleLoadMoreUIHandler {
 
     // ===========================================================
     // Constants
@@ -68,14 +67,14 @@ public class RecycleFooterView implements IRecycleExtraItem, RecycleLoadMoreUIHa
 
 
     @Override
-    public void onLoading(RecycleContainerBase container) {
+    public void onLoading(IRecycleLoadMoreContainer container) {
         mHolder.id_footer_text.setVisibility(View.VISIBLE);
         mHolder.id_footer_text.setText("努力加载中，请稍后");
         mHolder.id_footer_progress.setVisibility(View.VISIBLE);
     }
 
     @Override
-    public void onLoadFinish(RecycleContainerBase container, boolean empty, boolean hasMore) {
+    public void onLoadFinish(IRecycleLoadMoreContainer container, boolean empty, boolean hasMore) {
         if (!hasMore) {
 //            mHolder.id_footer_text.setVisibility(View.VISIBLE);
             mHolder.id_footer_text.setText("╮(╯_╰)╭ 再怎么加载也没有了");
@@ -85,15 +84,16 @@ public class RecycleFooterView implements IRecycleExtraItem, RecycleLoadMoreUIHa
     }
 
     @Override
-    public void onWaitToLoadMore(RecycleContainerBase container) {
+    public void onWaitToLoadMore(IRecycleLoadMoreContainer container) {
 
     }
 
     @Override
-    public void onLoadError(RecycleContainerBase container, int errorCode, String errorMessage) {
+    public void onLoadError(IRecycleLoadMoreContainer container, int errorCode, String errorMessage) {
         mHolder.id_footer_text.setText("(╯‵□′)╯︵┻━┻ 拿不到数据");
         mHolder.id_footer_progress.setVisibility(View.INVISIBLE);
     }
+
     // ===========================================================
     // Methods
     // ===========================================================

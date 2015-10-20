@@ -9,7 +9,8 @@
     <android.support.v7.widget.Toolbar
         android:id="@+id/id_tool_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"/>
 
     <ImageView
         android:id="@+id/id_image_item_shown"

@@ -1,11 +1,11 @@
-package com.sola.module.recycle.library.adapter;
+package com.sola.module.recycle.recyclecontainer.adapter;
 
 import android.animation.AnimatorSet;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.sola.module.recycle.library.interfaces.IRecycleAnimatorListItem;
+import com.sola.module.recycle.recyclecontainer.interfaces.IRecycleAnimatorListItem;
 
 import java.util.List;
 

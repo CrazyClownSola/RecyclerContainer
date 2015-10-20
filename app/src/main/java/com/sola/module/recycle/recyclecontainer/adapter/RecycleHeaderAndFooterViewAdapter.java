@@ -1,11 +1,11 @@
-package com.sola.module.recycle.library.adapter;
+package com.sola.module.recycle.recyclecontainer.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 
-import com.sola.module.recycle.library.interfaces.IRecycleExtraItem;
+import com.sola.module.recycle.recyclecontainer.interfaces.IRecycleExtraItem;
 
 import java.util.ArrayList;
 import java.util.List;

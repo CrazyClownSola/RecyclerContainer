@@ -1,16 +1,12 @@
-package com.sola.module.recycle.library.interfaces;
-
-import android.animation.AnimatorSet;
-import android.view.View;
-
+package com.sola.module.recycle.fix_container.tools;
 
 /**
  * Description:
  * <p/>
  * author: Sola
- * 2015/9/25
+ * 2015/10/13
  */
-public interface IRecycleAnimatorListItem extends IRecycleListItem {
+public interface IRecycleLoadMoreHandler {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -23,12 +19,5 @@ public interface IRecycleAnimatorListItem extends IRecycleListItem {
     // Methods
     // ===========================================================
 
-    /**
-     * 获取每一项加载的时候的动画效果
-     *
-     * @param view
-     * @return
-     */
-    AnimatorSet getAnimatorSet(View view);
-
+    void onLoadMore(IRecycleLoadMoreContainer container);
 }

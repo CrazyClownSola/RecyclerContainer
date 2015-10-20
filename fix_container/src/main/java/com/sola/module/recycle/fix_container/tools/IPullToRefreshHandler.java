@@ -1,17 +1,16 @@
-package com.sola.module.recycle.library.interfaces;
+package com.sola.module.recycle.fix_container.tools;
 
-import android.content.Context;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.view.ViewGroup;
+
+import com.sola.module.recycle.fix_container.RecyclerViewRefreshContainerBase;
 
 /**
  * Description:
  * <p/>
  * author: Sola
- * 2015/9/25
+ * 2015/10/16
  */
-public interface IRecycleListItem {
+public interface IPullToRefreshHandler {
     // ===========================================================
     // Constants
     // ===========================================================
@@ -24,14 +23,14 @@ public interface IRecycleListItem {
     // Methods
     // ===========================================================
 
+    /**
+     * Check can do refresh or not. For example the content is empty or the first child is in view.
+     * <p/>}
+     */
+    boolean checkCanDoRefresh(final RecyclerViewRefreshContainerBase frame, final View content, final View header);
 
     /**
-     * @param context 　控件组件
+     * When refresh begin
      */
-    View getView(Context context, ViewGroup parent);
-
-    RecyclerView.ViewHolder getHolder(Context context, ViewGroup parent);
-
-    void refreshView(Context context, RecyclerView.ViewHolder holder);
-
+    void onRefreshBegin(final RecyclerViewRefreshContainerBase frame);
 }
