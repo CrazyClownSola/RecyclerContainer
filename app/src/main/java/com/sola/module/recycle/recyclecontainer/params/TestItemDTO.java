@@ -1,13 +1,13 @@
 package com.sola.module.recycle.recyclecontainer.params;
 
 import android.animation.AnimatorSet;
-import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Build;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,9 +15,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.sola.module.recycle.recyclecontainer.interfaces.IRecycleAnimatorListItem;
 import com.sola.module.recycle.recyclecontainer.R;
 import com.sola.module.recycle.recyclecontainer.RecycleDetailActivity_;
+import com.sola.module.recycle.recyclecontainer.interfaces.IRecycleAnimatorListItem;
 
 import java.io.ByteArrayOutputStream;
 
@@ -66,7 +66,7 @@ public class TestItemDTO implements IRecycleAnimatorListItem {
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
-    @TargetApi(21)
+//    @TargetApi(21)
     @Override
     public View getView(final Context context, ViewGroup parent) {
         View v = LayoutInflater.from(context).inflate(R.layout.list_item_test_item_dto,
@@ -77,20 +77,23 @@ public class TestItemDTO implements IRecycleAnimatorListItem {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(context, RecycleDetailActivity_.class);
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-//            id_ptr_frame.setTransitionGroup(false);?
-//            ((ViewGroup) (e.getId_image_item_shown().getParent()).getParent()).setTransitionGroup(false);
-                ((BitmapDrawable) getId_image_item_shown().getDrawable()).getBitmap().
-                        compress(Bitmap.CompressFormat.PNG, 100, stream);
-//            e.getId_image_item_shown().getParent().tr
-                intent.putExtra("image", stream.toByteArray());
-                ActivityOptions options =
-                        ActivityOptions.makeSceneTransitionAnimation((Activity) context,
-                                getId_image_item_shown(),
-                                "image_transition"
-                        );
+
+                if (Build.VERSION.SDK_INT >= 21) {
+                    ActivityOptions options =
+                            ActivityOptions.makeSceneTransitionAnimation((Activity) context,
+                                    getId_image_item_shown(),
+                                    "image_transition"
+                            );
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    ((BitmapDrawable) getId_image_item_shown().getDrawable()).getBitmap().
+                            compress(Bitmap.CompressFormat.PNG, 100, stream);
+                    intent.putExtra("image", stream.toByteArray());
 //            options.
-                context.startActivity(intent, options.toBundle());
+                    context.startActivity(intent, options.toBundle());
+                } else {
+                    context.startActivity(intent);
+                }
+
             }
         });
         return v;

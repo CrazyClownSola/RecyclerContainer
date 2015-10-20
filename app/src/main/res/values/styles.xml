@@ -22,5 +22,11 @@
 
     </style>
 
+    <style name="MaterialTheme" parent="MaterialBaseTheme">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
+        <!--<item name="android:windowSharedElementEnterTransition"></item>-->
+    </style>
+
 
 </resources>

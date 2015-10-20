@@ -3,6 +3,7 @@ package com.sola.module.recycle.recyclecontainer;
 import android.annotation.TargetApi;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.transition.Slide;
@@ -49,11 +50,12 @@ public class RecycleDetailActivity extends AppCompatActivity {
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
 
-    @TargetApi(21)
+    //    @TargetApi(21)
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        finishAfterTransition();
+        if (Build.VERSION.SDK_INT > 21)
+            finishAfterTransition();
     }
 
     @Override
@@ -67,16 +69,19 @@ public class RecycleDetailActivity extends AppCompatActivity {
     // ===========================================================
     // Methods
     // ===========================================================
-    @TargetApi(21)
+//    @TargetApi(21)
     @AfterViews
     public void afterViews() {
         setSupportActionBar(id_tool_bar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getWindow().setEnterTransition(new Slide());
+
+        if (Build.VERSION.SDK_INT >= 21) {
+            getWindow().setEnterTransition(new Slide());
+            byte[] byteArray = getIntent().getByteArrayExtra("image");
+            Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+            id_image_item_shown.setImageBitmap(bitmap);
+        }
 //        getWindow().setEnterTransition(new Fade());
-        byte[] byteArray = getIntent().getByteArrayExtra("image");
-        Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-        id_image_item_shown.setImageBitmap(bitmap);
     }
 
     // ===========================================================
