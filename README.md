@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
-    </com.sola.module.recycle.fix_container.RecyclerViewPTRFixLoadMoreContainer>
+</com.sola.module.recycle.fix_container.RecyclerViewPTRFixLoadMoreContainer>
 
 ```
 包名略长，不要在意那么多细节
@@ -44,6 +44,7 @@
 通过`IPullToRefreshHandler`以检查确定是否可以下来刷新以及在合适的时间刷新数据。
 
 检查是否可以下拉刷新在`PtrDefaultHandler`中有默认简单的实现，你可以根据实际情况完成这个逻辑。
+
 Code
 ```
 @ViewById // 这是我惯用的Annotations库包提供的方法，不习惯的可以用findViewById()
@@ -62,7 +63,7 @@ id_ptr_frame.setPTRHandler(new PtrDefaultHandler() {
 
 主动触发刷新
 ```
-	id_ptr_frame.autoRefresh(true); // true代表是否是一次性的
+id_ptr_frame.autoRefresh(true); // true代表是否是一次性的
 ```
 
 
@@ -73,52 +74,14 @@ id_ptr_frame.setPTRHandler(new PtrDefaultHandler() {
 
 IPullToRefreshUIHandler:
 ```
-
-/**
- * Description:
- *
- * author: Sola
- * 2015/10/16
- */
 public interface IPullToRefreshUIHandler {
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
-    // ===========================================================
-    // Fields
-    // ===========================================================
-
-    // ===========================================================
-    // Methods
-    // ===========================================================
-
-    /**
-     * When the content view has reached top and refresh has been completed, view will be reset.
-     *
-     * @param frame 界面
-     */
+   
     void onUIReset(RecyclerViewRefreshContainerBase frame);
 
-    /**
-     * prepare for loading
-     *
-     * @param frame 界面
-     */
     void onUIRefreshPrepare(RecyclerViewRefreshContainerBase frame);
 
-    /**
-     * perform refreshing UI
-     *
-     * @param frame 界面
-     */
     void onUIRefreshBegin(RecyclerViewRefreshContainerBase frame);
 
-    /**
-     * perform UI after refresh
-     *
-     * @param frame 界面
-     */
     void onUIRefreshComplete(RecyclerViewRefreshContainerBase frame);
 
     /**
@@ -182,24 +145,9 @@ id_ptr_frame.setLoadMoreHandler(new IRecycleLoadMoreHandler() {
 
 IRecycleLoadMoreUIHandler:
 ```
-/**
- * Description:
- *
- * author: Sola
- * 2015/10/13
- */
+
 public interface IRecycleLoadMoreUIHandler {
-    // ===========================================================
-    // Constants
-    // ===========================================================
-
-    // ===========================================================
-    // Fields
-    // ===========================================================
-
-    // ===========================================================
-    // Methods
-    // ===========================================================
+   
     void onLoading(IRecycleLoadMoreContainer container);
 
     void onLoadFinish(IRecycleLoadMoreContainer container, boolean empty, boolean hasMore);
