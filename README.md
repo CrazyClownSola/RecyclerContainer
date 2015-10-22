@@ -204,3 +204,10 @@ adapter = new RecycleAnimatorViewAdapter<>(this, cacheList);
 id_recycler_view.setAdapter(adapter);
 
 ```
+
+
+
+##联系方式和问题建议
+-------------------------------------
+
+ - 邮箱 sloveaoqi@163.com
