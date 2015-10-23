@@ -29,6 +29,9 @@ mavenCentral()
 
 gradle, 最新版:
 ```
+// 引用supportV7包中的RecyclerView
+compile 'com.android.support:recyclerview-v7:${supportV7Version}'
+
 compile 'com.github.crazyclownsola:recycler_container:1.0.3@aar'
 ```
 
