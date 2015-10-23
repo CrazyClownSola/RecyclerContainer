@@ -10,8 +10,7 @@ import android.widget.TextView;
 import com.sola.module.recycle.fix_container.tools.IPullToRefreshUIHandler;
 
 /**
- * Description:
- * <p PTRContainer的基础类，主要是解决界面View的布局问题/>
+ * PTRContainer的基础类，主要是解决界面View的布局问题
  * author: Sola
  * 2015/10/16
  */

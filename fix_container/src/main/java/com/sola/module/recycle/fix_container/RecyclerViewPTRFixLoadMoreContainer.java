@@ -2,7 +2,6 @@ package com.sola.module.recycle.fix_container;
 
 import android.content.Context;
 import android.graphics.PointF;
-import android.support.annotation.NonNull;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -15,8 +14,7 @@ import com.sola.module.recycle.fix_container.tools.IPullToRefreshUIHandler;
 
 
 /**
- * Description:
- * <p/>
+ *
  * author: Sola
  * 2015/10/19
  */
@@ -199,7 +197,7 @@ public class RecyclerViewPTRFixLoadMoreContainer extends RecyclerViewLoadMoreCon
     }
 
     @Override
-    public boolean dispatchTouchEvent(@NonNull MotionEvent ev) {
+    public boolean dispatchTouchEvent(MotionEvent ev) {
         if (!isEnabled() || mContent == null || mHeaderView == null)
             return dispatchTouchEventSuper(ev);
         int action = ev.getAction();

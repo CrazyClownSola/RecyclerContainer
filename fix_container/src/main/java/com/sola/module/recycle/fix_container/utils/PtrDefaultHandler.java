@@ -7,8 +7,8 @@ import com.sola.module.recycle.fix_container.RecyclerViewRefreshContainerBase;
 import com.sola.module.recycle.fix_container.tools.IPullToRefreshHandler;
 
 /**
- * Description:
- * <p 定义了一个默认使用的 Pull to Refresh Handler事件监听的类/>
+ * 定义了一个默认使用的 Pull to Refresh Handler事件监听的类
+ *
  * author: Sola
  * 2015/10/20
  */
@@ -51,10 +51,7 @@ public abstract class PtrDefaultHandler implements IPullToRefreshHandler {
         }
     }
 
-    /**
-     * Default implement for check can perform pull to refresh
-     *
-     */
+
     public static boolean checkContentCanBePulledDown(RecyclerViewRefreshContainerBase frame, View content, View header) {
         return !canChildScrollUp(content);
     }

@@ -4,7 +4,7 @@ import com.sola.module.recycle.fix_container.RecyclerViewRefreshContainerBase;
 
 /**
  * Description:
- * <p/>
+ *
  * author: Sola
  * 2015/10/16
  */
@@ -23,26 +23,41 @@ public interface IPullToRefreshUIHandler {
 
     /**
      * When the content view has reached top and refresh has been completed, view will be reset.
+     *
+     * @param frame 界面
      */
     void onUIReset(RecyclerViewRefreshContainerBase frame);
 
     /**
      * prepare for loading
+     *
+     * @param frame 界面
      */
     void onUIRefreshPrepare(RecyclerViewRefreshContainerBase frame);
 
     /**
      * perform refreshing UI
+     *
+     * @param frame 界面
      */
     void onUIRefreshBegin(RecyclerViewRefreshContainerBase frame);
 
     /**
      * perform UI after refresh
+     *
+     * @param frame 界面
      */
     void onUIRefreshComplete(RecyclerViewRefreshContainerBase frame);
 
     /**
      * 一般用于判断 当前拖动的位置是否超越警戒线
+     *
+     * @param frame        界面
+     * @param isUnderTouch 是否在touch事件中
+     * @param status       状态
+     * @param currentPos   当前位置
+     * @param lastPos      前一个点击的位置
+     * @param offsetHeight Header最大便宜高度
      */
     void onUIPositionChange(RecyclerViewRefreshContainerBase frame,
                             boolean isUnderTouch,

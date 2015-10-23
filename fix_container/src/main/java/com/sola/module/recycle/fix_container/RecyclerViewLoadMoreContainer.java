@@ -13,8 +13,8 @@ import com.sola.module.recycle.fix_container.tools.IRecycleLoadMoreUIHandler;
 
 
 /**
- * Description:
- * <p  RecyclerView 附带上LoadMore效果的控件，注意该类中的子布局中一定要有RecyclerView，否则主动抛异常 />
+ * RecyclerView 附带上LoadMore效果的控件，注意该类中的子布局中一定要有RecyclerView，否则主动抛异常
+ *
  * author: Sola
  * 2015/10/20
  */
