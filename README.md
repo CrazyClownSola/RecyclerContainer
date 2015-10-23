@@ -16,8 +16,21 @@
 
 ###使用方式
 -----------------------
+ 
+我已经尝试把项目放到maven当中去，暂且只有aar的版本
+具体配置如下
 
-我正在尝试放到Maven仓库去,但是在Release版本上会出一些问题，后续完成之后我会补充到文档中去，对应jar包已经放到项目根目录下，请君食用
+最新版本放在 (https://oss.sonatype.org/content/repositories/releases)
+in gradle:
+
+```
+mavenCentral()
+```
+
+gradle, 最新版:
+```
+compile 'com.github.crazyclownsola:recycler_container:1.0.3@aar'
+```
 
 
 ######xml示例
