@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest
-    package="com.sola.module.recycle.recyclecontainer"
+    package="com.sola.module.recycle.demo"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <application
@@ -9,7 +9,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".RecycleFixActivity_"
+            android:name="com.sola.module.recycle.demo.RecycleFixActivity_"
             android:label="@string/app_name"
             android:theme="@style/MaterialTheme">
             <intent-filter>
@@ -20,13 +20,10 @@
         </activity>
 
         <activity
-            android:name=".RecycleDetailActivity_"
+            android:name="com.sola.module.recycle.demo.RecycleDetailActivity_"
             android:screenOrientation="portrait"
             android:theme="@style/MaterialTheme"/>
-        <activity
-            android:name=".MainActivity_"
-            android:screenOrientation="portrait"
-            android:theme="@style/MaterialTheme"/>
+
 
     </application>
 

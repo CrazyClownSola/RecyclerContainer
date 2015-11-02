@@ -2,7 +2,7 @@ package com.sola.module.recycle.fix_container.tools;
 
 import android.view.View;
 
-import com.sola.module.recycle.fix_container.RecyclerViewRefreshContainerBase;
+import com.sola.module.recycle.fix_container.RecyclerContainerBase;
 
 /**
  * Description:
@@ -30,12 +30,12 @@ public interface IPullToRefreshHandler {
      * @param header  自定义的HeaderView
      * @return 是否能进行更新
      */
-    boolean checkCanDoRefresh(final RecyclerViewRefreshContainerBase frame, final View content, final View header);
+    boolean checkCanDoRefresh(final RecyclerContainerBase frame, final View content, final View header);
 
     /**
      * When refresh begin
      *
      * @param frame 界面
      */
-    void onRefreshBegin(final RecyclerViewRefreshContainerBase frame);
+    void onRefreshBegin(final RecyclerContainerBase frame);
 }

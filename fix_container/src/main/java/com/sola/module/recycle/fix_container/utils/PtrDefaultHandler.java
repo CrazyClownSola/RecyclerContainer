@@ -3,7 +3,7 @@ package com.sola.module.recycle.fix_container.utils;
 import android.view.View;
 import android.widget.AbsListView;
 
-import com.sola.module.recycle.fix_container.RecyclerViewRefreshContainerBase;
+import com.sola.module.recycle.fix_container.RecyclerContainerBase;
 import com.sola.module.recycle.fix_container.tools.IPullToRefreshHandler;
 
 /**
@@ -52,12 +52,12 @@ public abstract class PtrDefaultHandler implements IPullToRefreshHandler {
     }
 
 
-    public static boolean checkContentCanBePulledDown(RecyclerViewRefreshContainerBase frame, View content, View header) {
+    public static boolean checkContentCanBePulledDown(RecyclerContainerBase frame, View content, View header) {
         return !canChildScrollUp(content);
     }
 
     @Override
-    public boolean checkCanDoRefresh(RecyclerViewRefreshContainerBase frame, View content, View header) {
+    public boolean checkCanDoRefresh(RecyclerContainerBase frame, View content, View header) {
         return checkContentCanBePulledDown(frame, content, header);
     }
     // ===========================================================
