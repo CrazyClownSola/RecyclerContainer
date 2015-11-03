@@ -272,7 +272,6 @@ id_recycler_view.setAdapter(adapter);
 #####提供Log日志查看方法
 
 ```
-
 id_ptr_frame.setCustomDebug(true);
 ```
 
