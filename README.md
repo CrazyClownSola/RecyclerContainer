@@ -25,7 +25,7 @@ maven配置
 <dependency>
   <groupId>com.github.crazyclownsola</groupId>
   <artifactId>recycler_container</artifactId>
-  <version>1.0.4</version>
+  <version>1.0.5</version>
   <type>apklib</type>
 </dependency>
 
@@ -46,7 +46,7 @@ gradle, 最新版:
 // 引用supportV7包中的RecyclerView
 compile 'com.android.support:recyclerview-v7:${supportV7Version}'
 
-compile 'com.github.crazyclownsola:recycler_container:1.0.4@aar'
+compile 'com.github.crazyclownsola:recycler_container:1.0.5@aar'
 ```
 
 
