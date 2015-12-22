@@ -16,7 +16,7 @@ import com.sola.module.recycle.fix_container.tools.IPullToRefreshUIHandler;
 
 /**
  * Pull To Refresh and Load More Recycler View Container
- * <p/>
+ *
  * author: Sola
  * 2015/10/19
  */
@@ -142,6 +142,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
         }
     };
 
+    private boolean customDebug = false;
 
     // ===========================================================
     // Constructors
@@ -192,6 +193,10 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
         this.mDurationToClose = mDurationToClose;
     }
 
+    public void setCustomDebug(boolean customDebug) {
+        this.customDebug = customDebug;
+    }
+
     // ===========================================================
     // Methods for/from SuperClass/Interfaces
     // ===========================================================
@@ -239,12 +244,12 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
             case MotionEvent.ACTION_CANCEL:
                 isUnderTouch = false;
                 if (mCurrentPos > POS_START) {
-                    if (DEBUG) {
+                    if (DEBUG | customDebug) {
                         Log.d(LOG_TAG, "call onRelease when user release");
                     }
                     onRelease(false);
                     if (mCurrentPos != mPressedPos) {
-                        if (DEBUG) {
+                        if (DEBUG | customDebug) {
                             Log.d(LOG_TAG, "Action send cancel event");
                         }
                         sendCancelEvent();
@@ -259,9 +264,10 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
                 isUnderTouch = true;
                 mPressedPos = mCurrentPos;
                 mLastMovePos.set(ev.getX(), ev.getY());
-                Log.v(LOG_TAG, String.format("ACTION_DOWN:  lastX:%s  lastY:%s, " +
-                                "currentPos: %s",
-                        mLastMovePos.x, mLastMovePos.y, mCurrentPos));
+                if (DEBUG | customDebug)
+                    Log.v(LOG_TAG, String.format("ACTION_DOWN:  lastX:%s  lastY:%s, " +
+                                    "currentPos: %s",
+                            mLastMovePos.x, mLastMovePos.y, mCurrentPos));
 
                 scrollerRunner.abortIfWorking();
                 dispatchTouchEventSuper(ev);//这个方法没特别搞懂是为什么
@@ -280,7 +286,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
                 boolean moveUp = !moveDown;
                 boolean canMoveUp = mCurrentPos > POS_START;
 
-//                if (DEBUG) {
+//                if (DEBUG | customDebug) {
 //                    boolean canMoveDown = mPTRHandler != null &&
 //                            mPTRHandler.checkCanDoRefresh(this, mContent, mHeaderView);
 //                    Log.v(LOG_TAG, String.format("ACTION_MOVE: y:%s lastY:%s  offsetY:%s, " +
@@ -294,8 +300,9 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
                     return dispatchTouchEventSuper(ev);
 
                 if ((moveUp && canMoveUp) || moveDown) {
-                    Log.d(LOG_TAG,
-                            "action movePos deltaY[" + offsetY + "]");
+                    if (DEBUG | customDebug)
+                        Log.d(LOG_TAG,
+                                "action movePos deltaY[" + offsetY + "]");
                     movePos(offsetY);
                     return true;
                 }
@@ -312,19 +319,19 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
 
     @Override
     public void refreshComplete() {
-        if (DEBUG) {
+        if (DEBUG | customDebug) {
             Log.i(LOG_TAG, "refreshComplete");
         }
 
         int delay = (int) (mLoadingMinTime - (System.currentTimeMillis() - mLoadingStartTime));
         if (delay <= 0) {
-            if (DEBUG) {
+            if (DEBUG | customDebug) {
                 Log.d(LOG_TAG, "performRefreshComplete at once");
             }
             performRefreshComplete();
         } else {
             postDelayed(mPerformRefreshCompleteDelay, delay);
-            if (DEBUG) {
+            if (DEBUG | customDebug) {
                 Log.d(LOG_TAG, String.format(
                         "performRefreshComplete after delay: %s", delay));
             }
@@ -341,11 +348,11 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
         mStatus = PTR_STATUS_PREPARE;
         if (mPTRUIHandler != null)
             mPTRUIHandler.onUIRefreshPrepare(this);
-        if (DEBUG) {
+        if (DEBUG | customDebug) {
             Log.i(LOG_TAG, String.format(
                     "PtrUIHandler: onUIRefreshPrepare, mFlag %s", mFlag));
         }
-        if (DEBUG) {
+        if (DEBUG | customDebug) {
             Log.d(LOG_TAG,
                     String.format("tryToScrollTo: autoRefresh  to:%s",
                             POS_START));
@@ -406,7 +413,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
         if (isUnderTouch && !hasSendCancelEvent && mCurrentPos != mPressedPos) {
             hasSendCancelEvent = true;
 
-            if (DEBUG) {
+            if (DEBUG | customDebug) {
                 Log.d(LOG_TAG, "UpPos send cancel event");
             }
             sendCancelEvent();
@@ -417,7 +424,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
         if (hasLeftStartPosition() && mStatus == PTR_STATUS_INIT) {
             mStatus = PTR_STATUS_PREPARE;
             mPTRUIHandler.onUIRefreshPrepare(this);
-            if (DEBUG) {
+            if (DEBUG | customDebug) {
                 Log.i(LOG_TAG, String.format(
                         "PtrUIHandler: onUIRefreshPrepare, mFlag %s", mFlag));
             }
@@ -441,7 +448,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
                 tryToPerformRefresh();
             }
         }
-        if (DEBUG) {
+        if (DEBUG | customDebug) {
             Log.v(LOG_TAG, String.format(
                     "updatePos: change: %s, current: %s last: %s, top: %s, headerHeight: %s",
                     change, mCurrentPos, mLastPos, mContent.getTop(), mHeaderHeight));
@@ -470,7 +477,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
                 || mCurrentPos >= mOffsetToRefresh) {
             mStatus = PTR_STATUS_LOADING;
             preformRefresh();
-            if (DEBUG) {
+            if (DEBUG | customDebug) {
                 Log.i(LOG_TAG, "PtrUIHandler: onUIRefreshBegin [" + mFlag + "][" + mCurrentPos + "]");
             }
         }
@@ -488,7 +495,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
         mStatus = PTR_STATUS_COMPLETE;
         if (mScrollerRunning
                 && isAutoRefresh()) {
-            if (DEBUG) {
+            if (DEBUG | customDebug) {
                 Log.d(LOG_TAG,
                         "performRefreshComplete do nothing");
             }
@@ -501,7 +508,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
         tryToPerformRefresh();
         if (mStatus == PTR_STATUS_LOADING) {
             if (mCurrentPos > mHeaderHeight && !stayForLoading) {
-                if (DEBUG) {
+                if (DEBUG | customDebug) {
                     Log.d(LOG_TAG,
                             String.format("tryToScrollTo: onRelease , to:%s",
                                     mHeaderHeight));
@@ -529,7 +536,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
         mScroller.startScroll(0, 0, 0, distance, mDurationToClose);
 
         post(scrollerRunner);
-        if (DEBUG) {
+        if (DEBUG | customDebug) {
             Log.d(LOG_TAG,
                     String.format("tryToScrollTo: start: %s, distance:%s, to:%s, scrollY:%s",
                             start, distance, to, mScroller.getCurrY()));
@@ -541,7 +548,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
 
     protected void onPtrScrollFinish() {
         if (mCurrentPos > POS_START && isAutoRefresh()) {
-            if (DEBUG) {
+            if (DEBUG | customDebug) {
                 Log.d(LOG_TAG, "call onRelease after scroll finish");
             }
             onRelease(true);
@@ -550,7 +557,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
 
     private void tryScrollBackToTop() {
         if (!isUnderTouch) {
-            if (DEBUG) {
+            if (DEBUG | customDebug) {
                 Log.d(LOG_TAG,
                         String.format("tryToScrollTo: tryScrollBackToTop , to:%s",
                                 POS_START));
@@ -562,14 +569,14 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
 
     private void notifyUIRefreshComplete(boolean ignoreHook) {
         if (mPTRUIHandler != null) {
-            if (DEBUG) {
+            if (DEBUG | customDebug) {
                 Log.i(LOG_TAG, "PtrUIHandler: onUIRefreshComplete");
             }
             mPTRUIHandler.onUIRefreshComplete(this);
         }
         mRefreshCompleteY = mCurrentPos;
         if (!isUnderTouch) {
-            if (DEBUG) {
+            if (DEBUG | customDebug) {
                 Log.d(LOG_TAG,
                         String.format("tryToScrollTo: notifyUIRefreshComplete  to:%s",
                                 POS_START));
@@ -584,7 +591,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
                 && mCurrentPos == POS_START) {
             if (mPTRUIHandler != null)
                 mPTRUIHandler.onUIReset(this);
-            if (DEBUG) {
+            if (DEBUG | customDebug) {
                 Log.i(LOG_TAG, "PtrUIHandler: onUIReset");
             }
 
@@ -622,7 +629,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
     }
 
     private void sendDownEvent() {
-        if (DEBUG) {
+        if (DEBUG | customDebug) {
             Log.d(LOG_TAG, "send down event");
         }
         final MotionEvent last = mLastMoveEvent;
@@ -646,11 +653,12 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
                 int change = mScroller.getCurrY();
                 int deltaY = change - mLastFlingY;
                 mLastFlingY = change;
-                Log.d(LOG_TAG,
-                        "scroller runner change[" + change + "] " +
-                                "deltaY[" + deltaY + "] " +
-                                "[" + mLastFlingY + "] " +
-                                "[" + mCurrentPos + "]");
+                if (DEBUG | customDebug)
+                    Log.d(LOG_TAG,
+                            "scroller runner change[" + change + "] " +
+                                    "deltaY[" + deltaY + "] " +
+                                    "[" + mLastFlingY + "] " +
+                                    "[" + mCurrentPos + "]");
                 movePos(deltaY);
                 post(this);
             } else {
@@ -664,7 +672,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
                 if (!mScroller.isFinished())
                     mScroller.forceFinished(true);
                 if (mCurrentPos > POS_START && isAutoRefresh()) {
-                    if (DEBUG) {
+                    if (DEBUG | customDebug) {
                         Log.d(LOG_TAG, "call onRelease after scroll abort");
                     }
                     onRelease(true);
@@ -675,7 +683,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
         }
 
         private void reset() {
-            if (DEBUG) {
+            if (DEBUG | customDebug) {
                 Log.v(LOG_TAG, String.format("finish, currentPos:%s",
                         mCurrentPos));
             }

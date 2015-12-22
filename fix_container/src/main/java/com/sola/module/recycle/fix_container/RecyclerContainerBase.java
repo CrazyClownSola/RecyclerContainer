@@ -119,7 +119,7 @@ public abstract class RecyclerContainerBase extends ViewGroup {
     @Override
     protected void onFinishInflate() {
         final int childCount = getChildCount();
-        if (childCount > 1)
+        if (childCount > 2)
             throw new IllegalStateException("Pull to Refresh Container only can hold 2 elements");
         else if (childCount == 2) {
             // 如果布局当中有两个子类

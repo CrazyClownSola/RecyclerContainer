@@ -108,6 +108,7 @@ public class RecycleFixActivity extends AppCompatActivity {
                 refreshMore();
             }
         });
+//        id_ptr_frame.setCustomDebug(true);
         // 代码级别的动态设定HeaderView，也可以在Xml文件中添加进去
         id_ptr_frame.setHeaderView(headerView);
         //添加UI监听
