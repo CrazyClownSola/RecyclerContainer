@@ -20,7 +20,21 @@
 我已经尝试把项目放到maven当中去，暂且只有aar的版本
 具体配置如下
 
+maven配置
+```
+<dependency>
+  <groupId>com.github.crazyclownsola</groupId>
+  <artifactId>recycler_container</artifactId>
+  <version>1.0.6</version>
+  <type>apklib</type>
+</dependency>
+
+```
+
+
+
 最新版本放在 (https://oss.sonatype.org/content/repositories/releases)
+
 in gradle:
 
 ```
@@ -32,24 +46,28 @@ gradle, 最新版:
 // 引用supportV7包中的RecyclerView
 compile 'com.android.support:recyclerview-v7:${supportV7Version}'
 
-compile 'com.github.crazyclownsola:recycler_container:1.0.3@aar'
+compile 'com.github.crazyclownsola:recycler_container:1.0.6@aar'
 ```
 
 
 ######xml示例
 ```
-<com.sola.module.recycle.fix_container.RecyclerViewPTRFixLoadMoreContainer
-        android:id="@+id/id_ptr_frame"
+ <com.sola.module.recycle.fix_container.PTRLMRecyclerContainer
+        android:id="@+id/id_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+        android:layout_height="match_parent"
+        app:ptr_duration_to_close="400" // 关闭Header所需的时间间隔
+        app:ptr_duration_to_close_header="1000" // Header部分回复到下拉结束状态的时间间隔
+        app:ptr_ratio_of_header_height_to_refresh="1.4" // 警戒线的位置占比
+        >
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/id_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             />
-</com.sola.module.recycle.fix_container.RecyclerViewPTRFixLoadMoreContainer>
+
+    </com.sola.module.recycle.fix_container.PTRLMRecyclerContainer>
 
 ```
 包名略长，不要在意那么多细节
@@ -71,15 +89,16 @@ RecyclerView id_recycler_view;
 ```
 id_ptr_frame.setPTRHandler(new PtrDefaultHandler() {
             @Override
-            public void onRefreshBegin(RecyclerViewRefreshContainerBase frame) {
-                //do something when refresh trigger
-                }
+            public void onRefreshBegin(RecyclerContainerBase frame) {
+                refreshMore();
+            }
         });
 ```
 
 主动触发刷新
 ```
-id_ptr_frame.autoRefresh(true); // true代表是否是一次性的
+//autoRefresh方法是触发下拉动画的入口方法,true为一次性的立刻进行不呈现拖动动画，false是延迟进行，有动画效果
+id_ptr_frame.autoRefresh(true); 
 ```
 
 
@@ -92,13 +111,13 @@ IPullToRefreshUIHandler:
 ```
 public interface IPullToRefreshUIHandler {
    
-    void onUIReset(RecyclerViewRefreshContainerBase frame);
+    void onUIReset(RecyclerContainerBase frame);
 
-    void onUIRefreshPrepare(RecyclerViewRefreshContainerBase frame);
+    void onUIRefreshPrepare(RecyclerContainerBase frame);
 
-    void onUIRefreshBegin(RecyclerViewRefreshContainerBase frame);
+    void onUIRefreshBegin(RecyclerContainerBase frame);
 
-    void onUIRefreshComplete(RecyclerViewRefreshContainerBase frame);
+    void onUIRefreshComplete(RecyclerContainerBase frame);
 
     /**
      * 一般用于判断 当前拖动的位置是否超越警戒线
@@ -110,7 +129,7 @@ public interface IPullToRefreshUIHandler {
      * @param lastPos      前一个点击的位置
      * @param offsetHeight Header最大便宜高度
      */
-    void onUIPositionChange(RecyclerViewRefreshContainerBase frame,
+    void onUIPositionChange(RecyclerContainerBase frame,
                             boolean isUnderTouch,
                             byte status,
                             int currentPos,
@@ -132,6 +151,35 @@ id_ptr_frame.setHeaderView(headerView);
 id_ptr_frame.addPTRUIHandler(headerView);
 
 ```
+
+1.0.6版本更新支持xml配置HeaderView
+```
+<com.sola.module.recycle.fix_container.PTRLMRecyclerContainer
+        android:id="@+id/id_ptr_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:ptr_duration_to_close="1000"
+        app:ptr_duration_to_close_header="200"
+        app:ptr_ratio_of_header_height_to_refresh="1.4">
+
+        <com.sola.module.recycle.demo.view.fix.RecycleFixHeaderView_
+            android:id="@+id/id_header_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/id_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+</com.sola.module.recycle.fix_container.PTRLMRecyclerContainer>
+
+//别忘了在代码中添加UI监听
+id_ptr_frame.addPTRUIHandler(headerView);
+
+```
+
+
 
 在完成刷新之后请调用
 ```
@@ -219,6 +267,12 @@ if (cacheList == null)
 adapter = new RecycleAnimatorViewAdapter<>(this, cacheList);
 id_recycler_view.setAdapter(adapter);
 
+```
+
+#####提供Log日志查看方法
+
+```
+id_ptr_frame.setCustomDebug(true);
 ```
 
 
