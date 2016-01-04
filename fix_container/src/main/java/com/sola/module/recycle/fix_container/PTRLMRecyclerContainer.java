@@ -16,7 +16,7 @@ import com.sola.module.recycle.fix_container.tools.IPullToRefreshUIHandler;
 
 /**
  * Pull To Refresh and Load More Recycler View Container
- *
+ * <p/>
  * author: Sola
  * 2015/10/19
  */
@@ -423,7 +423,8 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
         // 第一种是：界面最开始，监听到界面移动的情况下
         if (hasLeftStartPosition() && mStatus == PTR_STATUS_INIT) {
             mStatus = PTR_STATUS_PREPARE;
-            mPTRUIHandler.onUIRefreshPrepare(this);
+            if (mPTRUIHandler != null)
+                mPTRUIHandler.onUIRefreshPrepare(this);
             if (DEBUG | customDebug) {
                 Log.i(LOG_TAG, String.format(
                         "PtrUIHandler: onUIRefreshPrepare, mFlag %s", mFlag));
