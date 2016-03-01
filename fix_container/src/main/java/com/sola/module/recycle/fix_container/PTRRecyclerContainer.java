@@ -13,15 +13,15 @@ import com.sola.module.recycle.fix_container.tools.IPullToRefreshContainer;
 import com.sola.module.recycle.fix_container.tools.IPullToRefreshHandler;
 import com.sola.module.recycle.fix_container.tools.IPullToRefreshUIHandler;
 
-
 /**
- * Pull To Refresh and Load More Recycler View Container
+ * 这个是个新添加的Container控件
+ * 是在我个人使用的过程中发现的，不限定子布局为RecyclerView的header下拉控件
+ * 可以尝试在
  *
  * author: Sola
- * 2015/10/19
+ * 2016/2/1
  */
-public class PTRLMRecyclerContainer extends LMRecyclerContainer
-        implements IPullToRefreshContainer {
+public class PTRRecyclerContainer extends RecyclerContainerBase implements IPullToRefreshContainer {
 
 
     // ===========================================================
@@ -118,7 +118,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
     MotionEvent mLastMoveEvent;
 
 
-    float mResistance = 1.7f;
+    float mResistance = 2.4f;
 
     /**
      *
@@ -148,30 +148,30 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
     // Constructors
     // ===========================================================
 
-    public PTRLMRecyclerContainer(Context context) {
+    public PTRRecyclerContainer(Context context) {
         this(context, null);
     }
 
-    public PTRLMRecyclerContainer(Context context, AttributeSet attrs) {
+    public PTRRecyclerContainer(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public PTRLMRecyclerContainer(Context context, AttributeSet attrs, int defStyleAttr) {
+    public PTRRecyclerContainer(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         TypedArray arr = context.obtainStyledAttributes(
-                attrs, R.styleable.PTRLMRecyclerContainer, 0, 0);
+                attrs, com.sola.module.recycle.fix_container.R.styleable.PTRLMRecyclerContainer, 0, 0);
         if (arr != null) {
             mDurationToClose = arr.getInt(
-                    R.styleable.PTRLMRecyclerContainer_ptr_duration_to_close,
+                    com.sola.module.recycle.fix_container.R.styleable.PTRLMRecyclerContainer_ptr_duration_to_close,
                     mDurationToClose
             );
             mDurationToCloseHeader = arr.getInt(
-                    R.styleable.PTRLMRecyclerContainer_ptr_duration_to_close_header,
+                    com.sola.module.recycle.fix_container.R.styleable.PTRLMRecyclerContainer_ptr_duration_to_close_header,
                     mDurationToCloseHeader
             );
             setRatioOfHeaderHeightToRefresh(arr.getFloat(
-                    R.styleable.PTRLMRecyclerContainer_ptr_ratio_of_header_height_to_refresh,
+                    com.sola.module.recycle.fix_container.R.styleable.PTRLMRecyclerContainer_ptr_ratio_of_header_height_to_refresh,
                     mRatioOfHeaderHeightToRefresh
             ));
             arr.recycle();
@@ -223,7 +223,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
 
     @Override
     public boolean dispatchTouchEvent(MotionEvent ev) {
-        if (!isEnabled() || mContent == null || mHeaderView == null)
+        if (!isEnabled() || mContent == null)
             return dispatchTouchEventSuper(ev);
         int action = ev.getAction();
         switch (action) {
@@ -263,7 +263,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
                 mLastMoveEvent = ev;
                 float x = ev.getX();
                 float y = ev.getY();
-                float offsetX = x - mLastMovePos.x;
+//                float offsetX = x - mLastMovePos.x;
                 // TODO: 2015/10/19 注意测试下  mResistance的用处
                 float offsetY = (y - mLastMovePos.y) / mResistance;
 
@@ -336,11 +336,11 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
         if (mPTRUIHandler != null)
             mPTRUIHandler.onUIRefreshPrepare(this);
         if (DEBUG | customDebug) {
-            Log.i(LOG_TAG, String.format(
+            Log.v(LOG_TAG, String.format(
                     "PtrUIHandler: onUIRefreshPrepare, mFlag %s", mFlag));
         }
         if (DEBUG | customDebug) {
-            Log.d(LOG_TAG,
+            Log.v(LOG_TAG,
                     String.format("tryToScrollTo: autoRefresh  to:%s",
                             POS_START));
         }
@@ -351,6 +351,7 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
             preformRefresh();
         }
     }
+
 
     @Override
     public void addPTRUIHandler(IPullToRefreshUIHandler handler) {
@@ -443,7 +444,8 @@ public class PTRLMRecyclerContainer extends LMRecyclerContainer
         }
         //至关重要的移动View的代码
 //        if(mHeaderV)
-        mHeaderView.offsetTopAndBottom(change);
+        if (mHeaderView != null)
+            mHeaderView.offsetTopAndBottom(change);
         mContent.offsetTopAndBottom(change);
         invalidate();
         if (mPTRUIHandler != null)
