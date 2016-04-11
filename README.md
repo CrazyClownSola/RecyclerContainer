@@ -33,7 +33,7 @@ maven配置
 
 
 
-最新版本放在 (https://oss.sonatype.org/content/repositories/releases)
+最新版本放在 (https://oss.sonatype.org/content/repositories/releases/com/github/crazyclownsola/recycler_container/)
 
 in gradle:
 
@@ -46,7 +46,7 @@ gradle, 最新版:
 // 引用supportV7包中的RecyclerView
 compile 'com.android.support:recyclerview-v7:${supportV7Version}'
 
-compile 'com.github.crazyclownsola:recycler_container:1.0.6@aar'
+compile 'com.github.crazyclownsola:recycler_container:1.0.7@aar'
 ```
 
 
