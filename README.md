@@ -53,7 +53,7 @@ compile 'com.github.crazyclownsola:recycler_container:1.0.7@aar'
 ######xml示例
 ```
  <com.sola.module.recycle.fix_container.PTRLMRecyclerContainer
-        android:id="@+id/id_container"
+        android:id="@+id/id_ptr_frame"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:ptr_duration_to_close="400" // 关闭Header所需的时间间隔
@@ -83,6 +83,8 @@ Code
 ```
 @ViewById // 这是我惯用的Annotations库包提供的方法，不习惯的可以用findViewById()
 RecyclerView id_recycler_view;
+@ViewById
+PTRLMRecyclerContainer id_ptr_frame;
 	
 ```
 
